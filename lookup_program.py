@@ -11,7 +11,10 @@ Check that number 1's are not lowercase l's, etc.""")
 sleep(5)
 
 while keep_going:
-    microchip_number = input('Microchip number: ')
+    microchip_number = input('Microchip number (or Q to quit): ')
+    if microchip_number == 'Q':
+        break
+
 
     length_of_number = len(microchip_number)
     print(f'Microchip number contains {length_of_number} characters.')
@@ -46,12 +49,12 @@ while keep_going:
     elif length_of_number == 9:
         brand = 'AVID'
     else:
-        print('Number does not match any chip format. Please double check that the correct characters were inputted.')
+        print('Number does not match any chip format.')
+        sleep(1)
+        print('Please double check that the correct characters were inputted.')
         sleep(2)
         continue
 
-    print(f"{brand} is the brand of your pet's microchip.")
-    sleep(2)
 
     microchip_brands = {'Datamars, PetLink':{'Manufacturer':'Datamars', 
                                             'Frequency':'134.2 kHz', 
@@ -80,9 +83,23 @@ while keep_going:
                                     'Frequency_10_digit':'125 kHz', 
                                     'Contact Phone Number':'1-877-567-8738'}}
 
-    print(microchip_brands[brand])
-    sleep(3)
-    still_keep_going = input('Have another number to lookup? (Y/N) ')
-    if still_keep_going == 'N':
-        keep_going = False
+    print(f"The brand of your pet's microchip is {brand}.")
+    sleep(1)
+    if brand in ['HomeAgain', 'Banfield']:
+        print(f'The manufacturer is {microchip_brands[brand]["Manufacturer_" + str(length_of_number) + "_digit"]}.')
+    else:
+        print(f'The manufacturer is {microchip_brands[brand]["Manufacturer"]}.')
+    sleep(1)
+    if brand == 'Datamars, PetLink':
+        print(f'The chip\'s frequency is {microchip_brands[brand]["Frequency"]}.')
+    else:
+        print(f'The chip\'s frequency is {microchip_brands[brand]["Frequency_" + str(length_of_number) + "_digit"]}.')
+    sleep(1)
+    print(f"Please call {microchip_brands[brand]['Contact Phone Number']} for more information regarding your pet\'s microchip.")
+    sleep(2)
 
+    still_keep_going = input('Do you have another number to lookup? (Y/N) ')
+    if still_keep_going == 'N':
+        break
+
+print('Thank you for using the Pet Microchip Lookup.')
