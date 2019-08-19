@@ -15,7 +15,6 @@ while keep_going:
     if microchip_number == 'Q':
         break
 
-
     length_of_number = len(microchip_number)
     print(f'Microchip number contains {length_of_number} characters.')
     sleep(2)
